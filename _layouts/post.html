@@ -1,13 +1,14 @@
 ---
 layout: default
 ---
+{% assign author = site.authors[page.author] %}
 <div class="l-row">
 
 <div class="l-col75">
  <div class="box post hentry">
   <h2 class="entry-title fancy-heading">{{ page.title }}</h2>
   <div class="post-info">Posted by
-   <span class="vcard author"><a rel="author" class="url fn" href="http://scumways.com">Ben</a></span>,
+   <span class="vcard author"><span class="fn">{{ author.name }}</span> ({{ author.description }})</span><br/>
    <time class="published" datetime="{{ page.date | date_to_xmlschema }}" pubdate>{{ page.date | date: "%B %d, %Y" }}</time>
   </div>
   <div class="post-body entry-content">

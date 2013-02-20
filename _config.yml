@@ -1,1 +1,5 @@
 permalink: ":title.html"
+authors:
+ ben:
+  name: Ben Campbell
+  description: unsourced.org developer
