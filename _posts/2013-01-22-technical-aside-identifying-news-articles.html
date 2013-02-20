@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Technical aside: identifying news articles"
+---
+<p>How can you tell if a given web page is a news article or not?</p>
+<p>The unsourced.org <a href="http://unsourced.org/extension">browser extensions</a> need to know this. When you go to a news article the extensions need to perform a look up in the unsourced.org database, so they can tell you about any attached sources or warning labels.</p>
+<p>Currently the extensions have a built-in <a href="https://raw.github.com/bcampbell/unsourced-firefox/master/lib/news_sites.js">whitelist</a> of news web sites - if you're reading a page on one of those sites, it's assumed to be a news article. The extension makes this decision based solely on the URL, so it can kick of the request to the unsourced.org database at the exactly the same time it starts loading the news article itself. By the time the article is ready to view, the extension should have any sources, warning labels or other information all ready to display.</p>
+<p>But a whitelist is pretty unfair to sites not on the list. And it's _really_ hard keeping a comprehensive list up to date. I'm not sure there's a perfect solution, but here are some options:</p>
+<ol>
+<li>Let the user add or remove sites from the whitelist</li>
+<li>use more information on the page itself to try and tell if it's a news article. For example, a lot of sites contain &lt;meta&gt; tags for facebook's opengraph scheme, so you'd see something like this in the raw HTML:
+<pre><code>&lt;meta property="og:type" content="article" /&gt;</code></pre>
+</li>
+<li>Try and guess news articles based solely on their URL. Most sites use URLs which follow a few general forms. Use of <a href="http://en.wikipedia.org/wiki/Slug_%28web_publishing%29#Slug">slugs</a> is very common. So is the use of numeric identifiers (eg ".../article-12345.html"). Most such URLs could be identified by some simple pattern-matching rules.</li>
+</ol>
+<p>1. is problematic for two reasons. Firstly, it places a burden upon the user to maintain their own whitelist of news sites. Secondly, it is not shared between users. So if one user adds a site to their whitelist, it'll still be missing from another users whitelist. The second user will never see any sources or labels which might be attached to articles on such sites.</p>
+<p>Option number 2 could correctly identify a lot of news articles (but not all). However, the identification can only be done once the page is loaded, so the extra information from unsourced.org would take longer to become available.</p>
+<p>URL matching as in option 3 would correctly trigger for most news article pages. But it would also trigger on a lot of non-news sites which just happen to use similar URL schemes.</p>
+<p>&nbsp;</p>
+<p>So I'm not yet sure what the proper solution is, but I rather suspect that it'll involve some sort of combination of methods.</p>
+<p>Suggestions and ideas welcome!</p>
