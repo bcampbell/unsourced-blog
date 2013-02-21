@@ -4,12 +4,12 @@ layout: default
 {% assign author = site.authors[page.author] %}
 <div class="l-row">
 
-<div class="l-col75">
- <div class="box post hentry">
+<div class="l-col66">
+ <div class="fullart post hentry">
   <h2 class="entry-title fancy-heading">{{ page.title }}</h2>
   <div class="post-info">Posted by
    <span class="vcard author"><span class="fn">{{ author.name }}</span> ({{ author.description }})</span><br/>
-   <time class="published" datetime="{{ page.date | date_to_xmlschema }}" pubdate>{{ page.date | date: "%B %d, %Y" }}</time>
+   <time class="published timestamp" datetime="{{ page.date | date_to_xmlschema }}" pubdate>{{ page.date | date: "%d %b %Y" }}</time>
   </div>
   <div class="post-body entry-content">
    {{ content }}
@@ -17,16 +17,21 @@ layout: default
  </div>
 </div>
 
-<div class="l-col25">
-<div class="box">
-  <h3>archive</h3>
-  <ul>
+<div class="l-col33">
+<div class="sidebar dot-frill">
+<div class="tool">
+  <header>
+  <h2>Blog archive</h2>
+  </header>
+  <ul class="bod blog-archive-list">
   {% for post in site.posts %}
-  <li>
+  <li> 
+   <time class="timestamp" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%d %b %Y" }}</time>
     <a href="{{ post.url }}">{{ post.title }}</a>
   </li>
   {% endfor %}
   </ul>
+</div>
 </div>
 </div>
 
